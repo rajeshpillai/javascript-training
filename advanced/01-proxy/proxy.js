@@ -1,14 +1,16 @@
 const Handler = {
-    get(target, name) {
-        console.log(`${target} calling ${name}`);
-        return (...args) => target.send(name, args);
+    get(target, prop, receiver) {
+        console.log(target, ` calling ${prop}`);
+        //return (...args) => target.send(name, args);
+        return Reflect.get(target, prop, receiver);
     },
 
-    set(obj, prop, value) {
+    set(target, prop, val, receiver) {
         // The default behavior to store the value
-        console.log(`updating ${prop} to ${value}`);
-        obj[prop] = value;
-        return true;
+        console.log(`updating ${prop} to ${val}`);
+        //obj[prop] = value;
+        //return true;
+        return Reflect.set(target,prop, val, receiver);
       }
 }
 
